@@ -1,6 +1,7 @@
 import React from 'react';
 import { Logo } from '../../../theme/Logo';
 import { MenuWrapper } from './styles/MenuWrapper';
+import { Button } from '../Button';
 
 export default function Menu() {
   return (
@@ -20,8 +21,8 @@ export default function Menu() {
         ))}
       </MenuWrapper.CentralSide>
       <MenuWrapper.RightSide>
-        <button>Entrar</button>
-        <button>Cadastrar</button>
+        <Button ghost variant="primary.main">Entrar</Button>
+        <Button variant="secondary.main">Cadastrar</Button>
       </MenuWrapper.RightSide>
     </MenuWrapper>
   );
