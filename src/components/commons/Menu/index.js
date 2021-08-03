@@ -1,13 +1,16 @@
+
 import React from 'react';
 import { Logo } from '../../../theme/Logo';
-import { MenuWrapper } from './styles/MenuWrapper';
 import { Button } from '../Button';
+import { MenuWrapper } from './styles/MenuWrapper';
 
 export default function Menu() {
   return (
     <MenuWrapper>
-      <MenuWrapper.LeftSide> <Logo /> </MenuWrapper.LeftSide>
-      <MenuWrapper.CentralSide as="ul">
+      <MenuWrapper.LeftSide> {/* MenuWrapper.LeftSide */}
+        <Logo />
+      </MenuWrapper.LeftSide>
+      <MenuWrapper.CentralSide as="ul"> {/* MenuWrapper.CentralSide */}
         {[
           { url: '/', name: 'Home' },
           { url: '/faq', name: 'Perguntas Frequentes' },
@@ -20,9 +23,13 @@ export default function Menu() {
           </li>
         ))}
       </MenuWrapper.CentralSide>
-      <MenuWrapper.RightSide>
-        <Button ghost variant="primary.main">Entrar</Button>
-        <Button variant="secondary.main">Cadastrar</Button>
+      <MenuWrapper.RightSide> {/* MenuWrapper.RightSide */}
+        <Button type="button" ghost variant="secondary.main">
+          Entrar
+        </Button>
+        <Button type="button" variant="primary.main">
+          Cadastrar
+        </Button>
       </MenuWrapper.RightSide>
     </MenuWrapper>
   );
