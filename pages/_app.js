@@ -1,5 +1,9 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable react/prop-types */
 import Head from 'next/head';
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'styled-components';
 import theme from '../src/theme';
 import GlobalStyle from '../src/theme/GlobalStyle';
 
@@ -19,5 +23,5 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </ThemeProvider>
     </>
-  )
+  );
 }
