@@ -5,8 +5,13 @@ import { Text } from '../src/components/foundation/Text';
 import Button from '../src/components/commons/Button';
 import Grid from '../src/components/foundation/layout/Grid';
 import Box from '../src/components/foundation/layout/Box';
+import Modal from '../src/components/commons/Modal';
 
 export default function Home() {
+  const [isModalOpen, setModalState] = React.useState(false);
+  console.log('retorno do Hook', isModalOpen[1]);
+  // o primeiro valor do array é o inicial do estado
+
   return (
     <Box
       flex="1"
@@ -18,6 +23,31 @@ export default function Home() {
       backgroundRepeat="no-repeat"
       backgroundPosition="bottom right"
     >
+
+      {/* { isModalOpen && <Modal isOpen={isModalOpen} /> } */}
+      {/* Verifica se o modal está aberto ou fechado  */}
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setModalState(false);
+        }}
+      >
+        {(propsDoModal) => {
+          <Box
+            backgroundColor="white"
+          // data-modal-safe-area="true"
+          // área do Modal que pode ser clicada
+          // área segura dentro do box
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...propsDoModal}
+          >
+            Conteúdo para o Modal!
+          </Box>;
+        }}
+
+      </Modal>
+
       <Menu />
 
       <Grid.Container
@@ -65,6 +95,11 @@ export default function Home() {
                 md: 'initial',
               }}
               display="block"
+              onClick={() => {
+                // isModalOpen = true;
+                setModalState(!isModalOpen);
+                // mudando o estado quando o botão é clicado
+              }}
             >
               Cadastrar
             </Button>
