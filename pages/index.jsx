@@ -42,7 +42,9 @@ export default function Home() {
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...propsDoModal}
           >
-            Conteúdo para o Modal!
+            <div>
+              Nosso conteúdo pro modal
+            </div>
           </Box>;
         }}
 
