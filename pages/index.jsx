@@ -6,9 +6,10 @@ import Button from '../src/components/commons/Button';
 import Grid from '../src/components/foundation/layout/Grid';
 import Box from '../src/components/foundation/layout/Box';
 import Modal from '../src/components/commons/Modal';
+import FormCadastro from '../src/components/patterns/FormCadastro';
 
 export default function Home() {
-  const [isModalOpen, setModalState] = React.useState(false);
+  const [isModalOpen, setModalState] = React.useState(true);
   console.log('retorno do Hook', isModalOpen[1]);
   // o primeiro valor do array é o inicial do estado
 
@@ -34,7 +35,9 @@ export default function Home() {
         }}
       >
         {(propsDoModal) => {
-          <Box
+          <FormCadastro propsDoModal={propsDoModal} />;
+
+          /*  <Box
             backgroundColor="white"
           // data-modal-safe-area="true"
           // área do Modal que pode ser clicada
@@ -45,7 +48,8 @@ export default function Home() {
             <div>
               Nosso conteúdo pro modal
             </div>
-          </Box>;
+          </Box>; */
+            <FormCadastro propsDoModal={propsDoModal} />;
         }}
 
       </Modal>
