@@ -1,4 +1,9 @@
 import React from 'react';
+import Button from '../../commons/Button';
+import TextField from '../../forms/TexField';
+import Box from '../../foundation/layout/Box';
+import Grid from '../../foundation/layout/Grid';
+import Text from '../../foundation/Text';
 
 function FormContent() {
   const [userInfo, setUserInfo] = React.useState({
@@ -6,39 +11,67 @@ function FormContent() {
     email: 'mail@email.com',
   });
 
+  function handleChange(event) {
+    const fieldName = event.target.getAttribute('name');
+    setUserInfo({
+      ...userInfo,
+      [fieldName]: event.target.value,
+    });
+  }
+
+  const isFormInvalid = userInfo.usuario.length === 0 || userInfo.email.length === 0;
+
   return (
-    <form>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        console.log('O formulário ta pronto, vamos cadastrar de fato o usuario');
+      }}
+    >
+
+      <Text
+        variant="title"
+        tag="h1"
+        color="tertiary.main"
+      >
+        Pronto para saber da vida dos outros?
+      </Text>
+      <Text
+        variant="paragraph1"
+        tag="p"
+        color="tertiary.light"
+        marginBottom="32px"
+      >
+        Você está a um passo de saber tudoo que está
+        rolando no bairro, complete seu cadastro agora!
+      </Text>
+
       <div>
-        <input
+        <TextField
           placeholder="Email"
           name="email"
           value={userInfo.email}
-          onChange={(event) => {
-            console.log('Mudar o valor do input', fieldName);
-            const fieldName = event.target.getAttribute('name');
-            setUserInfo({
-              ...userInfo,
-              email: event.target.value,
-            });
-          }}
+          onChange={handleChange} // capturadores, pegadores de ação
         />
       </div>
+
       <div>
-        <input
+        <TextField
           placeholder="Usuário"
           name="usuario"
           value={userInfo.usuario}
-          onChange={() => {
-            console.log('Mudar o valor do input');
-          }}
+          onChange={handleChange}
         />
+      </div>
 
-      </div>
-      <div>
-        <button type="submit">
-          Cadastrar
-        </button>
-      </div>
+      <Button
+        variant="primary.main"
+        type="submit"
+        disabled={isFormInvalid}
+        fullWidth
+      >
+        Cadastrar
+      </Button>
     </form>
   );
 }
@@ -46,9 +79,35 @@ function FormContent() {
 // eslint-disable-next-line react/prop-types
 export default function FormCadastro({ propsDoModal }) {
   return (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <div {...propsDoModal}>
-      <FormContent />
-    </div>
+    <Grid.Row
+      marginLeft={0}
+      marginRight={0}
+      flex={1}
+      justifyContent="flex-end"
+    >
+      <Grid.Col
+        display="flex"
+        paddingRight={{ md: '0' }}
+        flex={1}
+        value={{ xs: 12, md: 5, lg: 4 }}
+      >
+        <Box
+          boxShadow="-10px 0px 24px rgba(7, 12, 14, 0.1)"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          flex={1}
+          padding={{
+            xs: '16px',
+            md: '85px',
+          }}
+          backgroundColor="white"
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...propsDoModal}
+        >
+          <FormContent />
+        </Box>
+      </Grid.Col>
+    </Grid.Row>
   );
 }
