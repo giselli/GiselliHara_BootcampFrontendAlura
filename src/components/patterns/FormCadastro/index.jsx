@@ -1,6 +1,7 @@
 import React from 'react';
 import { Lottie } from '@crello/react-lottie';
 import errorAnimation from './animations/error.json';
+import successAnimation from './animations/success.json';
 import Button from '../../commons/Button';
 import TextField from '../../forms/TexField';
 import Box from '../../foundation/layout/Box';
@@ -118,7 +119,7 @@ function FormContent() {
           <Lottie
             width="150px"
             height="150px"
-            config={{ animationData: errorAnimation, loop: true, autoplay: true }}
+            config={{ animationData: successAnimation, loop: true, autoplay: true }}
           />
           {/* https://lottiefiles.com/43920-success-alert-icon */}
         </Box>
