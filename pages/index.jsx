@@ -11,7 +11,7 @@ import FormCadastro from '../src/components/patterns/FormCadastro';
 // comentário para apagar
 
 export default function Home() {
-  const [isModalOpen, setModalState] = React.useState(true);
+  const [isModalOpen, setModalState] = React.useState(false);
   // console.log('retorno do Hook', isModalOpen[1]);
   // o primeiro valor do array é o inicial do estado
 
@@ -42,7 +42,9 @@ export default function Home() {
 
       </Modal>
 
-      <Menu />
+      <Menu
+        onCadastrarClick={() => setModalState(true)}
+      />
 
       <Grid.Container
         marginTop={{
