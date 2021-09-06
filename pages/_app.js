@@ -2,11 +2,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/react-in-jsx-scope */
 /* eslint-disable react/prop-types */
+import React from 'react';
 import Head from 'next/head';
-import { ThemeProvider } from 'styled-components';
-import theme from '../src/theme';
-import GlobalStyle from '../src/theme/GlobalStyle';
-import SEO from '../src/components/commons/SEO';
 
 export default function App({ Component, pageProps }) {
   return (
@@ -18,11 +15,7 @@ export default function App({ Component, pageProps }) {
           rel="stylesheet"
         />
       </Head>
-      <SEO headTitle="Home" />
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Component {...pageProps} />
     </>
   );
 }

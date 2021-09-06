@@ -1,51 +1,20 @@
 import React from 'react';
-import Footer from '../src/components/commons/Footer';
-import Menu from '../src/components/commons/Menu';
 import Text from '../src/components/foundation/Text';
 import Button from '../src/components/commons/Button';
 import Grid from '../src/components/foundation/layout/Grid';
+import { WebsitePageContext } from '../src/components/wrappers/WebsitePage';
 import Box from '../src/components/foundation/layout/Box';
-import Modal from '../src/components/commons/Modal';
-import FormCadastro from '../src/components/patterns/FormCadastro';
+import websitePageHOC from '../src/components/wrappers/WebsitePage/hoc';
 
-// comentário para apagar
-
-export default function Home() {
-  const [isModalOpen, setModalState] = React.useState(false);
-  // console.log('retorno do Hook', isModalOpen[1]);
-  // o primeiro valor do array é o inicial do estado
+function HomeScreen() {
+  const websitePageContext = React.useContext(WebsitePageContext);
 
   return (
     <Box
-      flex="1"
       display="flex"
-      flexWrap="wrap"
       flexDirection="column"
-      justifyContent="space-between"
-      backgroundImage="url(/images/bubbles.svg)"
-      backgroundRepeat="no-repeat"
-      backgroundPosition="bottom right"
+      flex="1"
     >
-
-      {/* { isModalOpen && <Modal isOpen={isModalOpen} /> } */}
-      {/* Verifica se o modal está aberto ou fechado  */}
-
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
-          setModalState(false);
-        }}
-      >
-        {(propsDoModal) => (
-          <FormCadastro propsDoModal={propsDoModal} />
-        )}
-
-      </Modal>
-
-      <Menu
-        onCadastrarClick={() => setModalState(true)}
-      />
-
       <Grid.Container
         marginTop={{
           xs: '32px',
@@ -54,20 +23,18 @@ export default function Home() {
       >
         <Grid.Row>
           <Grid.Col
-            offset={{ xs: 0, md: 1 }}
-            // pula uma coluna das 12 para que o texto se inicie
             value={{ xs: 12, md: 5 }}
-          // o primeiro elemento ocupará 5 colunas do grid com a tela em md
+            offset={{ xs: 0, md: 1 }}
             display="flex"
             alignItems="flex-start"
             justifyContent="center"
             flexDirection="column"
           >
-
             <Text
               variant="title"
               tag="h1"
               color="tertiary.main"
+          // textAlign="right"
               textAlign={{
                 xs: 'center',
                 md: 'left',
@@ -89,17 +56,13 @@ export default function Home() {
             </Text>
 
             <Button
-              variant="primary.main"
               margin={{
                 xs: 'auto',
                 md: 'initial',
               }}
               display="block"
-              onClick={() => {
-                // isModalOpen = true;
-                setModalState(!isModalOpen);
-                // mudando o estado quando o botão é clicado
-              }}
+              variant="primary.main"
+              onClick={() => websitePageContext.toggleModalCadastro()}
             >
               Cadastrar
             </Button>
@@ -110,18 +73,27 @@ export default function Home() {
               md: 6,
             }}
           >
-            {/* <img src="https://placehold.it/400x400" /> */}
-            {/* <img src="https://picsum.photos/400" /> */}
             <img
+              alt="Imagem de celular com páginas internas do projeto com o perfil do Cage"
               style={{ display: 'block', margin: 'auto' }}
               src="https://bootcamp-alura-01-git-modulo01.omariosouto.vercel.app/images/phones.png"
-              alt="imagem de um telefone com fotos de Nicolas Cage"
             />
           </Grid.Col>
-
         </Grid.Row>
       </Grid.Container>
-      <Footer />
     </Box>
   );
 }
+
+export default websitePageHOC(HomeScreen, {
+  pageWrapperProps: {
+    seoProps: {
+      headTitle: 'Home',
+    },
+    pageBoxProps: {
+      backgroundImage: 'url(/images/bubbles.svg)',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'bottom right',
+    },
+  },
+});
