@@ -15,8 +15,8 @@ export default function LoginForm() {
     initialValues,
     onSubmit: (values) => {
       loginService.login({
-        username: values.usuario,
-        password: values.senha,
+        username: values.usuario, // 'omariosouto'
+        password: values.senha, // 'senhasegura'
       })
         .then(() => {
           router.push('/app/profile');
