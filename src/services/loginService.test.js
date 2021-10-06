@@ -1,4 +1,5 @@
-import { loginService } from './loginService';
+/* eslint-disable indent */
+import { loginService } from './login/loginService';
 
 const token = 'fake-token';
 async function HttpClientModule() {
@@ -29,10 +30,10 @@ describe('loginService', () => {
           }, setCookieModule, HttpClientModule);
 
           expect(setCookieModule).toHaveBeenCalledWith(
-            null, 'LOGIN_COOKIE_APP_TOKEN', token, {
-              path: '/',
-              maxAge: 604800,
-            },
+            null, 'APP_TOKEN', token, {
+            path: '/',
+            maxAge: 604800,
+          },
           );
           expect(loginServiceResponse).toEqual({ token });
         });
@@ -55,8 +56,8 @@ describe('loginService', () => {
     describe('when user try to logout and succeed', () => {
       test('remove its token', async () => {
         const destroyCookie = jest.fn();
-        await loginService.logout(null, destroyCookie);
-        expect(destroyCookie).toHaveBeenCalledWith(null, 'LOGIN_COOKIE_APP_TOKEN', { path: '/' }); // que apague o token
+        await loginService.logout(destroyCookie);
+        expect(destroyCookie).toHaveBeenCalledWith(null, 'APP_TOKEN'); // que apague o token
       });
     });
   });

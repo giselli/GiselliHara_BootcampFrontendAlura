@@ -1,14 +1,9 @@
-import AboutScreen, { getContent } from '../src/components/screens/AboutScreen';
-import websitePageHOC from '../src/components/wrappers/WebsitePage/hoc';
+import React from 'react';
 
-export async function getStaticProps({ preview }) {
-  const messages = await getContent({ preview });
-
-  return {
-    props: {
-      messages,
-    },
-  };
+export default function PageSobre() {
+  return (
+    <div>
+      Página Sobre
+    </div>
+  );
 }
-
-export default websitePageHOC(AboutScreen);
