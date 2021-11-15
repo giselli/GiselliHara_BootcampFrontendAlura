@@ -1,13 +1,10 @@
-/* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-
 import WebsitePageWrapper from '..';
 import WebsiteGlobalProvider from '../provider';
 
 export default function websitePageHOC(
-  PageComponent,
+  PageComponet,
   { pageWrapperProps } = { pageWrapperProps: {} },
 ) {
   return (props) => (
@@ -16,8 +13,9 @@ export default function websitePageHOC(
         {...pageWrapperProps}
         {...props.pageWrapperProps}
         messages={props.messages}
+        userContext={props.userContext}
       >
-        <PageComponent {...props} />
+        <PageComponet {...props} />
       </WebsitePageWrapper>
     </WebsiteGlobalProvider>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Lottie } from '@crello/react-lottie';
-import errorAnimation from './animations/error.json';
+import errorAnimation from '../../../assets/animation/denied.json';
 import { Button } from '../../commons/Button';
 import TextField from '../../forms/TextField';
 import { Box } from '../../foundation/layout/Box';
@@ -40,7 +40,6 @@ function FormContent() {
 
         setIsFormSubmited(true);
 
-        // Data Transfer Object
         const userDTO = {
           username: userInfo.usuario,
           name: userInfo.nome,
@@ -95,7 +94,8 @@ function FormContent() {
           placeholder="Nome"
           name="nome"
           value={userInfo.nome}
-          onChange={handleChange} // capturadores, pegadores de ação
+          // eslint-disable-next-line react/jsx-no-bind
+          onChange={handleChange}
         />
       </div>
 
@@ -104,6 +104,7 @@ function FormContent() {
           placeholder="Usuário"
           name="usuario"
           value={userInfo.usuario}
+          // eslint-disable-next-line react/jsx-no-bind
           onChange={handleChange}
         />
       </div>

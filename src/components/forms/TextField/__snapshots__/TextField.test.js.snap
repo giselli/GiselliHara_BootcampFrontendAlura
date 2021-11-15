@@ -12,7 +12,7 @@ exports[`<TextField /> renders component 1`] = `
   border: 1px solid #88989E;
   padding: 12px 16px;
   outline: 0;
-  border-radius: 8px;
+  border-radius: 50px;
 }
 
 <input
@@ -20,7 +20,7 @@ exports[`<TextField /> renders component 1`] = `
   name="nome"
   placeholder="Nome"
   type="text"
-  value="Ju"
+  value="Mario"
 />
 `;
 
@@ -36,7 +36,7 @@ exports[`<TextField /> when field is invalid displays the respective error messa
   border: 1px solid #88989E;
   padding: 12px 16px;
   outline: 0;
-  border-radius: 8px;
+  border-radius: 50px;
   border-color: #dc3545;
 }
 
@@ -47,9 +47,9 @@ exports[`<TextField /> when field is invalid displays the respective error messa
 
 <input
   class="c0 c1"
-  name="email"
-  placeholder="Email"
+  name="nome"
+  placeholder="Nome"
   type="text"
-  value="devsoutinhogmail.com"
+  value=""
 />
 `;

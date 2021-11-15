@@ -2,44 +2,41 @@ import React from 'react';
 import user from '@testing-library/user-event';
 import FormLogin from './index';
 import {
-  render,
-  act,
-  screen,
-  waitFor,
+  render, act, screen, waitFor,
 } from '../../../infra/test/testUtils';
 
 const onSubmit = jest.fn();
 onSubmit.mockImplementation((event) => {
   event.preventDefault();
 });
-
 describe('<FormLogin />', () => {
   describe('when from fields are valid', () => {
-    test('complete the sumission', async () => {
-      await act(async () => render(
-        <FormLogin
-          onSubmit={onSubmit}
-        />,
-      ));
+    test('complete a submision', async () => {
+      await act(async () => {
+        await render(
+          <FormLogin
+            onSubmit={onSubmit}
+          />,
+        );
+      });
 
       expect(screen.getByRole('button')).toBeDisabled();
-
+      // USER
       const inputUsuario = screen.getByPlaceholderText('Usuário');
       user.type(inputUsuario, 'someusername');
       await waitFor(() => expect(inputUsuario).toHaveValue('someusername'));
-
+      // PASSWORD
       const inputSenha = screen.getByPlaceholderText('Senha');
       user.type(inputSenha, 'somepassword');
       await waitFor(() => expect(inputSenha).toHaveValue('somepassword'));
-
+      // BUTTON habilitado
       expect(screen.getByRole('button')).not.toBeDisabled();
-
+      // click do bbutton
       user.click(screen.getByRole('button'));
-
-      expect(onSubmit).toHaveBeenCalledTimes(1);
+      // SUBMIT
+      expect(onSubmit).toBeCalledTimes(1);
     });
   });
-
   describe('when form fields are invalid', () => {
     test('displays the respective errors', async () => {
       render(<FormLogin onSubmit={onSubmit} />);

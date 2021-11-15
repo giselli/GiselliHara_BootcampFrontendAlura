@@ -1,32 +1,27 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 
 function formatErrors(yupErrorsInner = []) {
-  return yupErrorsInner.reduce((errorObjectAcc, currentError) => {
+  return yupErrorsInner.reduce((errorAcc, currentError) => {
     const fieldName = currentError.path;
     const errorMessage = currentError.message;
     return {
-      ...errorObjectAcc,
+      ...errorAcc,
       [fieldName]: errorMessage,
     };
   }, {});
 }
 
-export function useForm({
-  initialValues,
-  onSubmit,
-  validateSchema,
-}) {
-  const [values, setValues] = React.useState(initialValues);
-
-  const [isFormDisabled, setIsFormDisabled] = React.useState(true);
-  const [errors, setErrors] = React.useState({});
-  const [touched, setTouchedFields] = React.useState({});
+export function useForm({ initialValues, onSubmit, validateSchema }) {
+  const [values, setValues] = useState(initialValues);
+  const [isFormDisabled, setIsFormDisabled] = useState(true);
+  const [errors, setErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
 
   async function validateValues(currentValues) {
     try {
       await validateSchema(currentValues);
-      setErrors({});
       setIsFormDisabled(false);
+      setErrors({});
     } catch (err) {
       const formatedErrors = formatErrors(err.inner);
       setErrors(formatedErrors);
@@ -34,11 +29,8 @@ export function useForm({
     }
   }
 
-  React.useEffect(() => {
-    validateValues(values)
-      .catch((err) => {
-        console.log(err);
-      });
+  useEffect(() => {
+    validateValues(values);
   }, [values]);
 
   return {
@@ -48,25 +40,24 @@ export function useForm({
       onSubmit(values);
     },
     handleChange(event) {
-      const fieldName = event.target.getAttribute('name');
       const { value } = event.target;
-
-      setValues((currentValues) => ({
-        ...currentValues,
-        [fieldName]: value,
-      }));
+      const fieldName = event.target.getAttribute('name');
+      setValues((currentValues) => (
+        {
+          ...currentValues,
+          [fieldName]: value,
+        }
+      ));
     },
-    // Validação do Form
     isFormDisabled,
     setIsFormDisabled,
     errors,
-    touched,
+    touchedFields,
     handleBlur(event) {
       const fieldName = event.target.getAttribute('name');
-
       setTouchedFields({
-        ...touched,
-        [fieldName]: true, // usuario: true, senha: true ...
+        ...touchedFields,
+        [fieldName]: true,
       });
     },
   };

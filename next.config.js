@@ -8,7 +8,7 @@ module.exports = {
   async headers() {
     return [
       {
-        source: '/app/:path*/',
+        source: '/app/:path/',
         headers: [
           {
             key: 'X-Frame-Options',

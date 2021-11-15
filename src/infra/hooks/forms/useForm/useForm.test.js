@@ -1,21 +1,20 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { useForm } from './index';
 
-describe('useForm()', () => {
+describe('userForm()', () => {
   describe('when user types', () => {
     test('change the value', () => {
       const { result } = renderHook(() => useForm({
         initialValues: {
-          nome: 'Mario',
+          name: 'mario',
         },
       }));
-
-      const initialValues = { nome: 'Mario' };
+      const initialValues = { name: 'mario' };
       expect(result.current.values).toEqual(initialValues);
 
       const event = {
         target: {
-          getAttribute: () => 'nome',
+          getAttribute: () => 'name',
           value: 'Ju',
         },
       };
@@ -24,8 +23,7 @@ describe('useForm()', () => {
         result.current.handleChange(event);
       });
 
-      // expect, to be a new value
-      expect(result.current.values).toEqual({ nome: 'Ju' });
+      expect(result.current.values).toEqual({ name: 'Ju' });
     });
   });
 });

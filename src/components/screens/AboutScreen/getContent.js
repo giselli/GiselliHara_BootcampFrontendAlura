@@ -1,4 +1,4 @@
-import { CMSGraphQLClient, gql } from '../../../infra/cms/CMSGraphQLClient';
+import { CMSGraphQlClient, gql } from '../../../infra/cms/CMSGraphQlClient';
 
 export async function getContent({ preview }) {
   const query = gql`
@@ -9,8 +9,7 @@ export async function getContent({ preview }) {
       }
     }
   `;
-  const client = CMSGraphQLClient({ preview });
-
+  const client = CMSGraphQlClient({ preview });
   const response = await client.query({ query });
 
   return response.data.messages;

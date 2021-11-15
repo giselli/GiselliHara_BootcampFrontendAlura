@@ -1,6 +1,9 @@
+/* eslint-disable indent */
 import styled, { css } from 'styled-components';
-import { breakpointsMedia } from '../../../../theme/utils/breakpointsMedia';
+import { breakpointsMedia } from '../../../theme/utils/breakpointsMedia';
 import { TextStyleVariantsMap } from '../../../foundation/Text';
+
+export { PrivateMenuWrapper } from './PrivateMenuWrapper';
 
 export const MenuWrapper = styled.nav`
   font-family: 'Rubik', sans-serif;
@@ -12,7 +15,7 @@ export const MenuWrapper = styled.nav`
   padding-left: 28px;
   padding-right: 28px;
   ${breakpointsMedia({
-    md: css`
+  md: css`
       justify-content: flex-start;
       margin-top: 32px;
       margin-left: auto;
@@ -21,50 +24,54 @@ export const MenuWrapper = styled.nav`
       padding: 0 16px;
       max-width: 768px;
     `,
-    lg: css`
+  lg: css`
       max-width: 1160px; 
     `,
-    xl: css`
+  xl: css`
       max-width: 1222px;
     `,
-  })}
+})}
 `;
 
-MenuWrapper.LeftSide = styled.div`
+MenuWrapper.Left = styled.div`
   padding: 0;
   margin: 0;
   order: 1;
   ${breakpointsMedia({
-    md: css`
-        width: 131px;
-        height: 32px;
-      `,
-  })}
-  ${breakpointsMedia({
-    md: css`
+  xs: css`
+        max-width: calc(100% *0.4);
+        margin:0px
+        justify-content: flex-start;
+        height: calc(100%);
+        order: 1;
+        svg{
+          width: calc(100%);
+        }
+    `,
+  md: css`
       order: initial;
       padding-right: 16px;
     `,
-  })}
+})}
 `;
 
-MenuWrapper.CentralSide = styled.div`
-  padding: 0;
+MenuWrapper.Central = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  
   margin: 0;
+  padding: 0;
   order: 3;
   width: 100%;
   list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 17px;
   border-top: 1px solid #88989E;
   border-bottom: 1px solid #88989E;
   padding: 12px;
   
   ${breakpointsMedia({
-    md: css`
-      max-width: 332px;
+  md: css`
+      max-width: 400px;
       justify-content: space-between;
       flex: 1;
       order: initial;
@@ -73,7 +80,7 @@ MenuWrapper.CentralSide = styled.div`
       padding-top: 0;
       padding-bottom: 0;
     `,
-  })}
+})}
   a {
     text-align: center;
     display: block;
@@ -81,13 +88,18 @@ MenuWrapper.CentralSide = styled.div`
     color: #88989E;
     transition: 200ms ease-in-out;
     ${breakpointsMedia({
-    xs: css`
+  xs: css`
         ${TextStyleVariantsMap.smallestException}
     `,
-    md: css`
+  md: css`
       ${TextStyleVariantsMap.paragraph1}
+      font-size: 14px;
     `,
-  })}
+  lg: css`
+      ${TextStyleVariantsMap.paragraph1}
+      font-size: 14px;
+    `,
+})}
     &:hover,
     &:focus {
       font-weight: 500;
@@ -97,7 +109,7 @@ MenuWrapper.CentralSide = styled.div`
   }
 `;
 
-MenuWrapper.RightSide = styled.div`
+MenuWrapper.Right = styled.div`
   padding: 0;
   margin: 0;
   display: flex;
@@ -105,8 +117,18 @@ MenuWrapper.RightSide = styled.div`
   order: 2;
   justify-content: flex-end;
   ${breakpointsMedia({
-    md: css`
-      order: initial;
+  xs: css`
+      justify-content: flex-end;
+      order: 2;
     `,
-  })}
+  sm: css`
+      width: calc(100% *0.4);
+      justify-content: flex-end;
+      order: 2;
+    `,
+  md: css`
+      order: initial;
+      justify-content: center;
+    `,
+})}
 `;

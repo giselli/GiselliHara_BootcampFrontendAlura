@@ -1,4 +1,4 @@
-export async function HttpClient(url, { headers, body, ...options }) {
+export async function HTTPClient(url, { headers, body, ...options }) {
   return fetch(url, {
     headers: {
       ...headers,
@@ -6,12 +6,10 @@ export async function HttpClient(url, { headers, body, ...options }) {
     },
     body: JSON.stringify(body),
     ...options,
-  })
-    .then((respostaDoServer) => {
-      if (respostaDoServer.ok) {
-        return respostaDoServer.json();
-      }
-
-      throw new Error('Falha em pegar os dados do servidor :(');
-    });
+  }).then((respostaDoServidor) => {
+    if (respostaDoServidor.ok) {
+      return respostaDoServidor.json();
+    }
+    throw new Error('Falha na requisição de pegar os dados da api');
+  });
 }

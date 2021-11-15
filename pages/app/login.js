@@ -1,4 +1,5 @@
 import React from 'react';
+import Logo from '../../src/assets/Logo';
 import Link from '../../src/components/commons/Link';
 import { Box } from '../../src/components/foundation/layout/Box';
 import { Grid } from '../../src/components/foundation/layout/Grid';
@@ -6,9 +7,7 @@ import Text from '../../src/components/foundation/Text';
 import LoginForm from '../../src/components/patterns/FormLogin';
 import { WebsitePageContext } from '../../src/components/wrappers/WebsitePage';
 import websitePageHOC from '../../src/components/wrappers/WebsitePage/hoc';
-import { Logo } from '../../src/theme/Logo';
 
-// Essa página e desafio, e vamos dar pronto no próximo módulo o 04
 function LoginScreen() {
   const websitePageContext = React.useContext(WebsitePageContext);
 
@@ -73,7 +72,7 @@ function LoginScreen() {
           >
             <img
               align="center"
-              src="https://bootcamp-alura-01-git-modulo01-omariosouto.vercel.app/images/phones.png"
+              src="https://bootcamp-alura-01-git-modulo01.omariosouto.vercel.app/images/phones.png"
               alt="Telefones mostrando as páginas internas do app"
             />
           </Box>
@@ -82,7 +81,6 @@ function LoginScreen() {
     </Grid.Container>
   );
 }
-
 export default websitePageHOC(LoginScreen, {
   pageWrapperProps: {
     seoProps: {

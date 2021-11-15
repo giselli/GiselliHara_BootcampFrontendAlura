@@ -7,12 +7,11 @@ function FAQPage({ faqCategories }) {
     <FAQScreen faqCategories={faqCategories} />
   );
 }
-FAQPage.propTypes = FAQScreen.propTypes;
 
 export default websitePageHOC(FAQPage, {
   pageWrapperProps: {
     seoProps: {
-      headTitle: 'Perguntas Frequentes',
+      headTitle: 'Perguntas frequentes',
     },
   },
 });
@@ -23,8 +22,6 @@ export async function getStaticProps() {
     .then((respostaConvertida) => respostaConvertida.data);
 
   return {
-    props: {
-      faqCategories,
-    }, // will be passed to the page component as props
+    props: { faqCategories },
   };
 }

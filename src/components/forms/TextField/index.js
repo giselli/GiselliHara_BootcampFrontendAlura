@@ -5,6 +5,32 @@ import Text from '../../foundation/Text';
 
 const InputWrapper = styled.div`
   margin-bottom: 17px;
+  ${function inputProps(props) {
+    if (props.search) {
+      return css`
+      margin-bottom: 0px;
+      `;
+    }
+    if (props.previewPhoto) {
+      return css`
+        width: 100%;
+        margin:0px;
+      `;
+    }
+    return '';
+  }}
+`;
+
+const InputSearch = css`
+  background-image: url('/images/lupa.svg');
+  background-repeat: no-repeat;
+  background-size:20px;
+  background-position-x: 15px;
+  background-position-y: 10px;
+  text-indent: 40px;
+  :focus{
+    background-image:none;
+  }
 `;
 
 const Input = styled(Text)`
@@ -13,14 +39,24 @@ const Input = styled(Text)`
   padding: 12px 16px;
   outline: 0;
   border-radius: ${({ theme }) => theme.borderRadius};
-
   ${({ theme, isFieldInvalid }) => isFieldInvalid && css`
     border-color: ${theme.colors.error.main.color};
     & + span {
       color: ${theme.colors.error.main.color};
-      font-size: 11px;
+        font-size: 11px;
+      }
+    `}
+  ${function inputProps(props) {
+    if (props.search) {
+      return InputSearch;
     }
-  `}
+    if (props.previewPhoto) {
+      return css`
+        border-radius: 9px 0px 0px 9px;
+      `;
+    }
+    return '';
+  }}
 `;
 
 Input.defaultProps = {
@@ -39,9 +75,8 @@ export default function TextField({
 }) {
   const hasError = Boolean(error);
   const isFieldInvalid = hasError && isTouched;
-
   return (
-    <InputWrapper>
+    <InputWrapper {...props}>
       <Input
         type="text"
         placeholder={placeholder}
@@ -49,10 +84,8 @@ export default function TextField({
         onChange={onChange}
         value={value}
         isFieldInvalid={isFieldInvalid}
-        // eslint-disable-next-line react/jsx-props-no-spreading
         {...props}
       />
-
       {isFieldInvalid && (
         <Text
           variant="smallestException"
@@ -65,7 +98,6 @@ export default function TextField({
     </InputWrapper>
   );
 }
-
 TextField.defaultProps = {
   error: '',
   isTouched: false,

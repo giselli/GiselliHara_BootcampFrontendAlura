@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes } from 'prop-types';
 import { Box } from '../../foundation/layout/Box';
 import { Grid } from '../../foundation/layout/Grid';
 import Text from '../../foundation/Text';

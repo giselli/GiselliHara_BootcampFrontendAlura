@@ -1,57 +1,69 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React from 'react';
+import React, { useState } from 'react';
+import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import Footer from '../../commons/Footer';
-import Menu from '../../commons/Menu';
-import Modal from '../../commons/Modal';
 import { Box } from '../../foundation/layout/Box';
+import Menu, { PrivateMenu } from '../../commons/Menu';
+import Modal from '../../commons/Modal';
 import FormCadastro from '../../patterns/FormCadastro';
 import SEO from '../../commons/SEO';
+import { WebsitePageContext } from './context';
+import { NewPhoto } from '../../commons/Card/NewPhoto';
 
-export const WebsitePageContext = React.createContext({
-  toggleModalCadastro: () => {},
-});
-
+export { WebsitePageContext } from './context';
 export default function WebsitePageWrapper({
-  children,
-  seoProps,
-  pageBoxProps,
-  menuProps,
+  children, seoProps, pageBoxProps, menuProps, messages, userContext,
 }) {
-  const [isModalOpen, setModalState] = React.useState(false);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newPostModal, setNewPostModal] = useState(false);
   return (
     <WebsitePageContext.Provider
       value={{
         teste: true,
         toggleModalCadastro: () => {
-          setModalState(!isModalOpen);
+          setIsModalOpen(!isModalOpen);
         },
+        getCMSContent: (cmsKey) => get(messages, cmsKey),
+        userContext,
       }}
     >
-      <SEO
-        {...seoProps}
-      />
-
+      <SEO {...seoProps} />
       <Box
         display="flex"
-        flex="1"
+        flex={1}
         flexDirection="column"
         {...pageBoxProps}
       >
         <Modal
           isOpen={isModalOpen}
           onClose={() => {
-            setModalState(false);
+            setIsModalOpen(false);
           }}
         >
-          {(propsDoModal) => (
+          {(propsDoModal) => (// usando () para nao precisar passar o return()
             <FormCadastro propsDoModal={propsDoModal} />
           )}
         </Modal>
-        {menuProps.display && (
-          <Menu
-            onCadastrarClick={() => setModalState(true)}
+
+        <Modal
+          isOpen={newPostModal}
+          onClose={() => setNewPostModal(false)}
+          newPost
+        >
+          {(propsDoModal) => (
+            <NewPhoto
+              propsDoModal={propsDoModal}
+            />
+          )}
+        </Modal>
+        {menuProps.display && menuProps.variant === 'default' && (
+          <Menu onCadastrarClick={() => setIsModalOpen(true)} />
+        )}
+        {menuProps.display && menuProps.variant === 'logged' && (
+
+          <PrivateMenu
+            onNewPostClick={() => setNewPostModal(true)}
+            avatar={userContext.gitInfo.avatar_url}
           />
         )}
         {children}
@@ -66,7 +78,9 @@ WebsitePageWrapper.defaultProps = {
   pageBoxProps: {},
   menuProps: {
     display: true,
+    variant: 'default',
   },
+  messages: '',
 };
 
 WebsitePageWrapper.propTypes = {
@@ -75,6 +89,7 @@ WebsitePageWrapper.propTypes = {
   }),
   menuProps: PropTypes.shape({
     display: PropTypes.bool,
+    variant: PropTypes.string,
   }),
   pageBoxProps: PropTypes.shape({
     backgroundImage: PropTypes.string,
@@ -82,4 +97,6 @@ WebsitePageWrapper.propTypes = {
     backgroundPosition: PropTypes.string,
   }),
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  messages: PropTypes.object,
 };
